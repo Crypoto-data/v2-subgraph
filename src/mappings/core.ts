@@ -79,7 +79,7 @@ export function handleTransfer(event: Transfer): void {
       )
       mint.transaction = transaction.id
       mint.pair = pair.id
-      mint.to = to.toString();
+      mint.to = to.toHexString();
       mint.liquidity = value
       mint.timestamp = transaction.timestamp
       mint.transaction = transaction.id
@@ -107,8 +107,8 @@ export function handleTransfer(event: Transfer): void {
     burn.pair = pair.id
     burn.liquidity = value
     burn.timestamp = transaction.timestamp
-    burn.to = event.params.to.toString()
-    burn.sender = event.params.from.toString()
+    burn.to = event.params.to.toHexString()
+    burn.sender = event.params.from.toHexString()
     burn.needsComplete = true
     burn.transaction = transaction.id
     burn.save()
@@ -311,7 +311,7 @@ export function handleMint(event: Mint): void {
   pair.save()
   uniswap.save()
 
-  mint.sender = event.params.sender.toString()
+  mint.sender = event.params.sender.toHexString()
   mint.amount0 = token0Amount as BigDecimal
   mint.amount1 = token1Amount as BigDecimal
   mint.logIndex = event.logIndex
@@ -482,13 +482,13 @@ export function handleSwap(event: Swap): void {
   swap.pair = pair.id
   swap.timestamp = transaction.timestamp
   swap.transaction = transaction.id
-  swap.sender = event.params.sender.toString()
+  swap.sender = event.params.sender.toHexString()
   swap.amount0In = amount0In
   swap.amount1In = amount1In
   swap.amount0Out = amount0Out
   swap.amount1Out = amount1Out
-  swap.to = event.params.to.toString()
-  swap.from = event.transaction.from.toString()
+  swap.to = event.params.to.toHexString()
+  swap.from = event.transaction.from.toHexString()
   swap.logIndex = event.logIndex
   // use the tracked amount if we have it
   swap.amountUSD = trackedAmountUSD === ZERO_BD ? derivedAmountUSD : trackedAmountUSD
