@@ -146,11 +146,11 @@ type Mint @entity {
   pair: Pair!
 
   # populated from the primary Transfer event
-  to: String!
+  to: Bytes!
   liquidity: BigDecimal!
 
   # populated from the Mint event
-  sender: String
+  sender: Bytes
   amount0: BigDecimal
   amount1: BigDecimal
   logIndex: BigInt
@@ -158,7 +158,7 @@ type Mint @entity {
   amountUSD: BigDecimal
 
   # optional fee fields, if a Transfer event is fired in _mintFee
-  feeTo: String
+  feeTo: Bytes
   feeLiquidity: BigDecimal
 }
 
@@ -173,10 +173,10 @@ type Burn @entity {
   liquidity: BigDecimal!
 
   # populated from the Burn event
-  sender: String
+  sender: Bytes
   amount0: BigDecimal
   amount1: BigDecimal
-  to: String
+  to: Bytes
   logIndex: BigInt
   # derived amount based on available prices of tokens
   amountUSD: BigDecimal
@@ -185,7 +185,7 @@ type Burn @entity {
   needsComplete: Boolean!
 
   # optional fee fields, if a Transfer event is fired in _mintFee
-  feeTo: String
+  feeTo: Bytes
   feeLiquidity: BigDecimal
 }
 
@@ -197,13 +197,13 @@ type Swap @entity {
   pair: Pair!
 
   # populated from the Swap event
-  sender: String!
-  from: String! # the EOA that initiated the txn
+  sender: Bytes!
+  from: Bytes! # the EOA that initiated the txn
   amount0In: BigDecimal!
   amount1In: BigDecimal!
   amount0Out: BigDecimal!
   amount1Out: BigDecimal!
-  to: String!
+  to: Bytes!
   logIndex: BigInt
 
   # derived info
@@ -259,7 +259,7 @@ type PairHourData @entity {
 type PairDayData @entity {
   id: ID!
   date: Int!
-  pairAddress: String!
+  pairAddress: Bytes!
   token0: Token!
   token1: Token!
 
