@@ -79,7 +79,7 @@ export function handleTransfer(event: Transfer): void {
       )
       mint.transaction = transaction.id
       mint.pair = pair.id
-      mint.to = to.toHexString();
+      mint.to = to.toHexString()
       mint.liquidity = value
       mint.timestamp = transaction.timestamp
       mint.transaction = transaction.id
@@ -319,7 +319,7 @@ export function handleMint(event: Mint): void {
   mint.save()
 
   // update the LP position
-  let liquidityPosition = createLiquidityPosition(event.address, mint.to as Address)
+  let liquidityPosition = createLiquidityPosition(event.address, Address.fromString(mint.to))
   createLiquiditySnapshot(liquidityPosition, event)
 
   // update day entities
@@ -381,7 +381,7 @@ export function handleBurn(event: Burn): void {
   burn.save()
 
   // update the LP position
-  let liquidityPosition = createLiquidityPosition(event.address, burn.sender as Address)
+  let liquidityPosition = createLiquidityPosition(event.address,Address.fromString(burn.sender))
   createLiquiditySnapshot(liquidityPosition, event)
 
   // update day entities
