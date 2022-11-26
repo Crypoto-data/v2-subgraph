@@ -194,14 +194,14 @@ export function handleTransfer(event: Transfer): void {
   }
 
   if (from.toHexString() != ADDRESS_ZERO && from.toHexString() != pair.id) {
-    let fromUserLiquidityPosition = createLiquidityPosition(event.address, from)
+    let fromUserLiquidityPosition = createLiquidityPosition(event.address, from.toHexString())
     fromUserLiquidityPosition.liquidityTokenBalance = convertTokenToDecimal(pairContract.balanceOf(from), BI_18)
     fromUserLiquidityPosition.save()
     createLiquiditySnapshot(fromUserLiquidityPosition, event)
   }
 
   if (event.params.to.toHexString() != ADDRESS_ZERO && to.toHexString() != pair.id) {
-    let toUserLiquidityPosition = createLiquidityPosition(event.address, to)
+    let toUserLiquidityPosition = createLiquidityPosition(event.address, to.toHexString())
     toUserLiquidityPosition.liquidityTokenBalance = convertTokenToDecimal(pairContract.balanceOf(to), BI_18)
     toUserLiquidityPosition.save()
     createLiquiditySnapshot(toUserLiquidityPosition, event)
@@ -319,7 +319,7 @@ export function handleMint(event: Mint): void {
   mint.save()
 
   // update the LP position
-  let liquidityPosition = createLiquidityPosition(event.address, Address.fromString(mint.to))
+  let liquidityPosition = createLiquidityPosition(event.address, mint.to)
   createLiquiditySnapshot(liquidityPosition, event)
 
   // update day entities
@@ -381,7 +381,7 @@ export function handleBurn(event: Burn): void {
   burn.save()
 
   // update the LP position
-  let liquidityPosition = createLiquidityPosition(event.address,Address.fromString(burn.sender))
+  let liquidityPosition = createLiquidityPosition(event.address, burn.sender)
   createLiquiditySnapshot(liquidityPosition, event)
 
   // update day entities

@@ -140,11 +140,11 @@ export function fetchTokenDecimals(tokenAddress: Address): BigInt {
   return BigInt.fromI32(decimalValue as i32)
 }
 
-export function createLiquidityPosition(exchange: Address, user: Address): LiquidityPosition {
+export function createLiquidityPosition(exchange: Address, userStr: string): LiquidityPosition {
   let id = exchange
     .toHexString()
     .concat('-')
-    .concat(user.toHexString())
+    .concat(userStr)
   let liquidityTokenBalance = LiquidityPosition.load(id)
   if (liquidityTokenBalance === null) {
     let pair = Pair.load(exchange.toHexString())
@@ -152,7 +152,7 @@ export function createLiquidityPosition(exchange: Address, user: Address): Liqui
     liquidityTokenBalance = new LiquidityPosition(id)
     liquidityTokenBalance.liquidityTokenBalance = ZERO_BD
     liquidityTokenBalance.pair = exchange.toHexString()
-    liquidityTokenBalance.user = user.toHexString()
+    liquidityTokenBalance.user = userStr
     liquidityTokenBalance.save()
     pair.save()
   }
